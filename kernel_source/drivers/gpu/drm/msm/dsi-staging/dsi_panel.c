@@ -880,7 +880,7 @@ static int dsi_panel_update_pwm_backlight(struct dsi_panel *panel,
 	if (!bl->pwm_enabled) {
 		rc = pwm_enable(bl->pwm_bl);
 		if (rc) {
-			pr_err("[%s] failed to enable pwm, rc=\n", panel->name,
+			pr_err("[%s] failed to enable pwm, rc=%d\n", panel->name,
 				rc);
 			goto error;
 		}
@@ -4614,7 +4614,7 @@ int dsi_panel_set_tearing(struct dsi_panel *panel, bool enable)
 
 	len =  ops->transfer(panel->host, &cmd.msg);
 	if (len < 0) {
-		pr_err("failed to transfer 0x%x cmd\n", payload);
+		pr_err("failed to transfer 0x%p cmd\n", payload);
 		goto err;
 	}
 err:

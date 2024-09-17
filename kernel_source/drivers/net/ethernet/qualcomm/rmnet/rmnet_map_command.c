@@ -237,6 +237,8 @@ static void rmnet_map_process_flow_end(struct sk_buff *skb,
 	port->stats.dl_trl_last_seq = dltrl->seq_le;
 	port->stats.dl_trl_count++;
 
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 	if (is_dl_mark_v2)
 		rmnet_map_dl_trl_notify_v2(port, dltrl, qcmd);
 	else
@@ -250,6 +252,7 @@ static void rmnet_map_process_flow_end(struct sk_buff *skb,
 			pull_size += sizeof(struct rmnet_map_dl_csum_trailer);
 		pskb_pull(skb, pull_size);
 	}
+	#pragma GCC diagnostic pop
 }
 
 /* Process MAP command frame and send N/ACK message as appropriate. Message cmd
